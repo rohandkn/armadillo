@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("distance_sensor", 1000);
+  ros::Publisher chatter_pub = n.advertise<armadillo::distance_sensor_packet>("distance_sensor", 1000);
 
   ros::Rate loop_rate(10);
 
@@ -22,15 +22,13 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
 
-    std_msgs::String msg;
+    armadillo::distance_sensor_packet pkt;
 
-    std::stringstream ss;
-    ss << "hello world " << count;
-    msg.data = ss.str();
+    pkt.distance_cm = .15;
 
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO("dndnd");
 
-    chatter_pub.publish(msg);
+    chatter_pub.publish(pkt);
 
     ros::spinOnce();
 
