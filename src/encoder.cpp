@@ -2,7 +2,7 @@
 #include "std_msgs/String.h"
 
 #include <sstream>
-#include <armadillo/distance_sensor_packet.h>
+#include <armadillo/encoder_packet.h>
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -10,11 +10,11 @@
 int main(int argc, char **argv)
 {
   
-  ros::init(argc, argv, "distance_sensor");
+  ros::init(argc, argv, "encoder");
 
   ros::NodeHandle n;
 
-  ros::Publisher chatter_pub = n.advertise<armadillo::distance_sensor_packet>("distance_sensor", 1000);
+  ros::Publisher chatter_pub = n.advertise<armadillo::encoder_packet>("encoder", 1000);
 
   ros::Rate loop_rate(10);
 
@@ -22,11 +22,11 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
 
-    armadillo::distance_sensor_packet pkt;
+    armadillo::encoder_packet pkt;
 
-    pkt.front_cliff = .15;
+    pkt.rotations = 1234;
 
-    ROS_INFO("dndnd");
+    ROS_INFO("encencenc");
 
     chatter_pub.publish(pkt);
 
