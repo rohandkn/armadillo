@@ -19,19 +19,19 @@ void encoder_Callback(const armadillo::encoder_packet& msg)
 
 armadillo::brusher_packet* createBrusherPacket(){
   armadillo::brusher_packet* pkt = new armadillo::brusher_packet();
-  pkt->state = armadillo::brusher_packet::ON;
+  pkt->state = armadillo::brusher_packet::OFF;
   return pkt;
 }
 
 armadillo::driver_packet* createDriverPacket(){
   armadillo::driver_packet* pkt = new armadillo::driver_packet();
-  pkt->direction = armadillo::driver_packet::FORWARD;
+  pkt->direction = armadillo::driver_packet::BACK;
   return pkt;
 }
 
 armadillo::lifter_packet* createLifterPacket(){
   armadillo::lifter_packet* pkt = new armadillo::lifter_packet();
-  pkt->direction =  armadillo::lifter_packet::UP;
+  pkt->direction =  armadillo::lifter_packet::DOWN;
   return pkt;
 }
 
@@ -55,8 +55,8 @@ int main(int argc, char **argv)
 
     armadillo::brusher_packet* brusher_pkt = createBrusherPacket();
     armadillo::lifter_packet* lifter_pkt = createLifterPacket();
-    armadillo::driver_packet* driver_pkt = createDriverPacket();distance_sensor_topic
-distance_sensor_topic
+    armadillo::driver_packet* driver_pkt = createDriverPacket();
+
     brusher_pub.publish(*brusher_pkt);
     driver_pub.publish(*driver_pkt);
     lifter_pub.publish(*lifter_pkt);
