@@ -1,14 +1,14 @@
 #include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <armadillo/distance_sensor_packet.h>
 
-void distance_sensor_Callback(const std_msgs::String::ConstPtr& msg)
+void distance_sensor_Callback(const armadillo::distance_sensor_packet& msg)
 {
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  ROS_INFO("I heard: [%f]", msg.front_cliff);
 }
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "distance_sensor");
+  ros::init(argc, argv, "navigation");
   ros::NodeHandle n;
 
   ros::Subscriber sub = n.subscribe("distance_sensor", 1000, distance_sensor_Callback);

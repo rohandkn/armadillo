@@ -28,6 +28,6 @@ target_link_libraries(encoder ${catkin_LIBRARIES})
 add_dependencies(encoder armadillo_generate_messages_cpp)
 
 ##Subscribers
-add_executable(navigation src/encoder.cpp)
+add_executable(navigation src/navigation.cpp)
 target_link_libraries(navigation ${catkin_LIBRARIES})
 add_dependencies(navigation armadillo_generate_messages_cpp)
