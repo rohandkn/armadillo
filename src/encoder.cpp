@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  ros::Publisher chatter_pub = n.advertise<armadillo::encoder_packet>("encoder", 1000);
+  ros::Publisher chatter_pub = n.advertise<armadillo::encoder_packet>("encoder_topic", 1000);
 
   ros::Rate loop_rate(10);
 
