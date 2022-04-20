@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp std_msgs genmsg)
 ## Declare ROS messages and services
 add_message_files(FILES distance_sensor_packet.msg)
 add_message_files(FILES encoder_packet.msg)
+add_message_files(FILES driver_packet.msg)
 
 ## Generate added messages and services
 generate_messages(DEPENDENCIES std_msgs)
@@ -31,3 +32,7 @@ add_dependencies(encoder armadillo_generate_messages_cpp)
 add_executable(navigation src/navigation.cpp)
 target_link_libraries(navigation ${catkin_LIBRARIES})
 add_dependencies(navigation armadillo_generate_messages_cpp)
+
+add_executable(driver src/driver.cpp)
+target_link_libraries(driver ${catkin_LIBRARIES})
+add_dependencies(driver armadillo_generate_messages_cpp)
