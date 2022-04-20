@@ -3,7 +3,8 @@
 
 void lifter_Callback(const armadillo::lifter_packet& msg)
 {
-  ROS_INFO("I heard: [%d]", msg.direction);
+  ROS_INFO("lifter received dir: [%d]", msg.direction);
+  ROS_INFO("lifter received speed: [%f]", msg.speed);
 }
 
 int main(int argc, char **argv)

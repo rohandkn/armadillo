@@ -5,7 +5,7 @@
 
 void distance_sensor_Callback(const armadillo::distance_sensor_packet& msg)
 {
-  ROS_INFO("I heard: [%f]", msg.front_cliff);
+  ROS_INFO("nav received front cliff sensor: [%f]", msg.front_cliff);
 }
 
 int main(int argc, char **argv)

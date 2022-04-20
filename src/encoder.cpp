@@ -7,6 +7,14 @@
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
+
+armadillo::encoder_packet* createEncoderPacket(){
+  armadillo::encoder_packet* pkt = new armadillo::encoder_packet();
+  pkt->rotations = 1.25;
+  return pkt;
+}
+
+
 int main(int argc, char **argv)
 {
   
@@ -22,13 +30,9 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
 
-    armadillo::encoder_packet pkt;
+    armadillo::encoder_packet* pkt = createEncoderPacket();
 
-    pkt.rotations = 1234;
-
-    ROS_INFO("encencenc");
-
-    chatter_pub.publish(pkt);
+    chatter_pub.publish(*pkt);
 
     ros::spinOnce();
 

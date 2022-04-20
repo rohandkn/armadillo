@@ -7,6 +7,14 @@
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
+
+armadillo::distance_sensor_packet* createSensorPacket(){
+  armadillo::distance_sensor_packet* pkt = new armadillo::distance_sensor_packet();
+  pkt->front_cliff = .15;
+  return pkt;
+}
+
+
 int main(int argc, char **argv)
 {
   
@@ -22,13 +30,9 @@ int main(int argc, char **argv)
   while (ros::ok())
   {
 
-    armadillo::distance_sensor_packet pkt;
+    armadillo::distance_sensor_packet* pkt = createSensorPacket();
 
-    pkt.front_cliff = .15;
-
-    ROS_INFO("dndnd");
-
-    chatter_pub.publish(pkt);
+    chatter_pub.publish(*pkt);
 
     ros::spinOnce();
 
