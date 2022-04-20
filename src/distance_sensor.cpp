@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  ros::Publisher chatter_pub = n.advertise<armadillo::distance_sensor_packet>("distance_sensor", 1000);
+  ros::Publisher chatter_pub = n.advertise<armadillo::distance_sensor_packet>("distance_sensor_topic", 1000);
 
   ros::Rate loop_rate(10);
 
