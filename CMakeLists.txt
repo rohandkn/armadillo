@@ -9,6 +9,8 @@ add_message_files(FILES distance_sensor_packet.msg)
 add_message_files(FILES encoder_packet.msg)
 add_message_files(FILES driver_packet.msg)
 add_message_files(FILES lifter_packet.msg)
+add_message_files(FILES brusher_packet.msg)
+
 
 
 ## Generate added messages and services
@@ -42,3 +44,8 @@ add_dependencies(driver armadillo_generate_messages_cpp)
 add_executable(lifter src/lifter.cpp)
 target_link_libraries(lifter ${catkin_LIBRARIES})
 add_dependencies(lifter armadillo_generate_messages_cpp)
+
+add_executable(brusher src/brusher.cpp)
+target_link_libraries(brusher ${catkin_LIBRARIES})
+add_dependencies(brusher armadillo_generate_messages_cpp)
+
