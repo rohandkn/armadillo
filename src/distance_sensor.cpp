@@ -10,15 +10,32 @@
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int front_cliff_fd = wiringPiI2CSetup(0x40);
+int middle_cliff_fd = wiringPiI2CSetup(0x40);
+int back_cliff_fd = wiringPiI2CSetup(0x40);
+int fave_1_fd = wiringPiI2CSetup(0x40);
+int fave_r_fd = wiringPiI2CSetup(0x40);
+int left_side_fd = wiringPiI2CSetup(0x40);
+int right_side_fd = wiringPiI2CSetup(0x40);
+
+
+float dist_calc(int fd){
+  int hodist = wiringPiI2CReadReg8(fd,0x5e);
+  int lodist = wiringPiI2CReadReg8(fd,0x5f);
+  float rawdist = (hodist*16+lodist)/4;
+  return rawdist;
+}
 
 armadillo::distance_sensor_packet* createSensorPacket(){
   armadillo::distance_sensor_packet* pkt = new armadillo::distance_sensor_packet();
-  int hodist = wiringPiI2CReadReg8(front_cliff_fd,0x5e);
-  int lodist = wiringPiI2CReadReg8(front_cliff_fd,0x5f);
-  float rawdist = (hodist*16+lodist)/4;
-  ROS_INFO("front cliff sensor value: [%f]", rawdist);
 
- pkt->front_cliff = rawdist;
+  pkt->front_cliff = dist_calc(front_cliff_fd);
+  pkt->middle_cliff = dist_calc(middle_cliff_fd);;
+  pkt->back_cliff = dist_calc(back_cliff_fd);;
+  pkt->face_l = dist_calc(fave_1_fd);
+  pkt->face_r = dist_calc(fave_r_fd);
+  pkt->left_side = dist_calc(left_side_fd);
+  pkt->right_side = dist_calc(right_side_fd);
+
   return pkt;
 }
 
