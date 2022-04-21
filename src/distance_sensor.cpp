@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include <wiringPi.h>
 #include <wiringPiI2C.h>
 
 #include <sstream>
@@ -14,8 +15,8 @@ armadillo::distance_sensor_packet* createSensorPacket(){
   armadillo::distance_sensor_packet* pkt = new armadillo::distance_sensor_packet();
   int hodist = wiringPiI2CReadReg8(front_cliff_fd,0x5e);
   int lodist = wiringPiI2CReadReg8(front_cliff_fd,0x5f);
-  int rawdist = (hodist*16+lodist)/4;
-  ROS_INFO("front cliff sensor value: [%d]", msg.rawdist);
+  float rawdist = (hodist*16+lodist)/4;
+  ROS_INFO("front cliff sensor value: [%f]", rawdist);
 
  pkt->front_cliff = rawdist;
   return pkt;

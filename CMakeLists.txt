@@ -49,3 +49,4 @@ add_executable(brusher src/brusher.cpp)
 target_link_libraries(brusher ${catkin_LIBRARIES})
 add_dependencies(brusher armadillo_generate_messages_cpp)
 
+set(CMAKE_CXX_FLAGS "-lwiringPi")
