@@ -9,10 +9,21 @@ int direction = 0;
 void lifter_Callback(const armadillo::lifter_packet& msg)
 {
   if (msg.speed != speed || msg.direction != direction) {
-    softPwmCreate(0,0,2);
-    softPwmWrite(0,1);
+    float scaledSpeed = msg.speed/100*8+2;
+    //checks for hold signal
+    if (msg.direction == armadillo::lifter_packet::HOLD){
+      //sets duty cycle = 100%
+      softPwmWrite(0,scaledSpeed);
+    } 
+    else{
+      softPwmCreate(0,0,scaledSpeed);
+      softPwmWrite(0,scaledSpeed/2);
+      //direction signal
+      digitalWrite(3,msg.direction);
+    }
+    //enable signal
     digitalWrite(2,1);
-    digitalWrite(3,1);
+
   }
 
   ROS_INFO("lifter received dir: [%d]", msg.direction);
