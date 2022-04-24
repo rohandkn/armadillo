@@ -3,5 +3,7 @@ uint8 UP=0
 uint8 DOWN=1
 uint8 HOLD=2
 uint8 FREE=3
-uint8 direction
-float64 speed
+uint8 direction_front
+float64 speed_front
+uint8 direction_back
+float64 speed_back
