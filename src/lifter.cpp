@@ -1,7 +1,8 @@
+#include "lifter_lib.h"
 #include "ros/ros.h"
-#include <armadillo/lifter_packet.h> 
-#include <wiringPi.h>
-#include <softPwm.h>
+#include "armadillo/lifter_packet.h" 
+#include "wiringPi.h"
+#include "softPwm.h"
 
 float speed = 0;
 int direction = 0;
