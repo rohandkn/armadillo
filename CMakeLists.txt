@@ -41,7 +41,7 @@ add_executable(driver src/driver.cpp)
 target_link_libraries(driver ${catkin_LIBRARIES})
 add_dependencies(driver armadillo_generate_messages_cpp)
 
-add_executable(lifter src/lifter.cpp)
+add_executable(lifter src/lifter.cpp src/lib/lifter_lib.cpp)
 target_link_libraries(lifter ${catkin_LIBRARIES})
 add_dependencies(lifter armadillo_generate_messages_cpp)
 
