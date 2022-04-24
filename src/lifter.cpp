@@ -1,13 +1,14 @@
 #include "ros/ros.h"
 #include <armadillo/lifter_packet.h>
 #include <wiringPi.h>
-#include <softPwm.h>
+#include <thread>
+#include <chrono>
 
 float speed = 0;
 int direction = 0;
+float delay = 0;
 
-void lifter_Callback(const armadillo::lifter_packet& msg)
-{
+void lifter_Callback(const armadillo::lifter_packet& msg) {
   if (msg.speed != speed || msg.direction != direction) {
     softPwmStop(0);
     direction = msg.direction;
@@ -25,7 +26,7 @@ void lifter_Callback(const armadillo::lifter_packet& msg)
       // enable signal
       digitalWrite(2,0);
     }
-    else{
+    else {
       ROS_INFO("set speed to %f", scaledSpeed);
       softPwmCreate(0,0,scaledSpeed);
       softPwmWrite(0,scaledSpeed/2);
@@ -33,9 +34,8 @@ void lifter_Callback(const armadillo::lifter_packet& msg)
       digitalWrite(3,msg.direction);
       // enable signal
       digitalWrite(2,1);
-    }
-  }
-
+     }
+  direction = msg.direction;
   ROS_INFO("lifter received dir: [%d]", msg.direction);
   ROS_INFO("lifter received speed: [%f]", msg.speed);
 }
