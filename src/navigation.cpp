@@ -22,7 +22,7 @@ armadillo::brusher_packet* createBrusherPacket(){
   pkt->state = armadillo::brusher_packet::OFF;
   return pkt;
 }
-169.254.79.141
+
 armadillo::driver_packet* createDriverPacket(){
   armadillo::driver_packet* pkt = new armadillo::driver_packet();
   pkt->direction = armadillo::driver_packet::BACK;
