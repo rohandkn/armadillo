@@ -14,4 +14,4 @@ class lifter_obj
 		void set_speed(int dir, float speed);
 
 
-}
+};
