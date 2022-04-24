@@ -6,8 +6,8 @@
 
 float speed = 0;
 int direction = 0;
-lifter_obj* front_lifter = new lifter_obj(3, 2, 0);
-lifter_obj* back_lifter = new lifter_obj(7, 6, 5);
+lifter_obj* front_lifter;
+lifter_obj* back_lifter;
 
 void lifter_Callback(const armadillo::lifter_packet& msg) {
   front_lifter->set_speed(msg.direction_front, msg.speed_front);
@@ -19,8 +19,10 @@ int main(int argc, char **argv)
 {
 
   ros::init(argc, argv, "lifter");
-  ros::NodeHandle n;
   wiringPiSetup();
+  front_lifter = new lifter_obj(3, 2, 0);
+  back_lifter = new lifter_obj(7, 6, 5);
+  ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe("lifter_topic", 1000, lifter_Callback);
   ros::spin();
 

@@ -31,7 +31,7 @@ armadillo::driver_packet* createDriverPacket(){
 
 armadillo::lifter_packet* createLifterPacket(){
   armadillo::lifter_packet* pkt = new armadillo::lifter_packet();
-  pkt->direction =  armadillo::lifter_packet::DOWN;
+  pkt->direction_back =  armadillo::lifter_packet::DOWN;
   return pkt;
 }
 
