@@ -35,7 +35,6 @@ void lifter_Callback(const armadillo::lifter_packet& msg) {
       // enable signal
       digitalWrite(2,1);
      }
-  direction = msg.direction;
   ROS_INFO("lifter received dir: [%d]", msg.direction);
   ROS_INFO("lifter received speed: [%f]", msg.speed);
 }
