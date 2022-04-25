@@ -1,10 +1,14 @@
 #include "armadillo/driver_obj.h"
 #include <chrono>
 #include <thread>
+#include <wiringPi.h>
+#include <softPwm.h>
+#include <ros/ros.h>
+
 driver_obj :: driver_obj(int dir_p, int clk_p)
 	: dir_pin(dir_p), clk_pin(clk_p)
 {
-  pinMode(clk_pin, PWM_OUTPUT);
+  pinMode(clk_pin, OUTPUT);
   // put this in driver.cpp pinMode(enable_pin, OUTPUT);
   pinMode(dir_pin, OUTPUT);
   digitalWrite(dir_pin,1);
@@ -21,7 +25,9 @@ void driver_obj :: pulse_clk(int pulses){
 }
 
 void driver_obj :: set_dir(int dir){
-	if (dir != current_dir) {
+pulse_clk(1);
+return;	
+if (dir != current_dir) {
 	    
 			if (dir == driver_obj::cw){
 				if(current_dir == driver_obj::ccw){
