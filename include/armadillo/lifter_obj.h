@@ -7,6 +7,8 @@ class lifter_obj
 		int current_dir;
 		float current_speed;
 
+		enum{cc, ccw, stop};
+
 	public:
 		//initialize thing
 		lifter_obj(int dir_p, int enable_p, int speed_p);

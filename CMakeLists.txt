@@ -37,7 +37,7 @@ add_executable(navigation src/navigation.cpp)
 target_link_libraries(navigation ${catkin_LIBRARIES})
 add_dependencies(navigation armadillo_generate_messages_cpp)
 
-add_executable(driver src/driver.cpp)
+add_executable(driver src/driver.cpp src/lib/driver_lib.cpp)
 target_link_libraries(driver ${catkin_LIBRARIES})
 add_dependencies(driver armadillo_generate_messages_cpp)
 
