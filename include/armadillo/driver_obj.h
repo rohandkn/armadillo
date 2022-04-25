@@ -3,9 +3,9 @@ class driver_obj
 	private:
 		int dir_pin;
 		int clk_pin;
-		int current_dir;
-		float current_speed;
-		enum wheel_dir {cw, ccw, stop};
+		int current_dir = 2;
+		float current_speed = 0;
+		enum wheel_dir {cw = 0, ccw = 1, stop = 2};
 		void pulse_clk(int pulses);
 
 	public:
