@@ -3,8 +3,8 @@ class driver_obj
 	private:
 		int dir_pin;
 		int clk_pin;
-		int current_dir = 2;
-		float current_speed = 0;
+		int current_dir = -1;
+		float current_speed = -1;
 		void pulse_clk(int pulses);
 
 	public:
