@@ -1,9 +1,8 @@
 Header header
 uint8 FORWARD=0
-uint8 LEFT=1
-uint8 RIGHT=2
-uint8 BACK=3
-uint8 HOLD=4
-uint8 STOP=5
+uint8 BACKWARD=1
+uint8 LEFT=2
+uint8 RIGHT=3
+uint8 STOP=4
 uint8 direction
 float64 speed 
