@@ -19,9 +19,9 @@ int main(int argc, char **argv)
 {
 
   ros::init(argc, argv, "lifter");
-  wiringPiSetup();
-  front_lifter = new lifter_obj(3, 2, 0);
-  back_lifter = new lifter_obj(7, 6, 5);
+  wiringPiSetupPhys();
+  front_lifter = new lifter_obj(15, 13, 11);
+  back_lifter = new lifter_obj(7, 22, 18);
   ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe("lifter_topic", 1000, lifter_Callback);
   ros::spin();

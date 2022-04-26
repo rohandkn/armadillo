@@ -4,7 +4,7 @@
 #include "wiringPi.h"
 #include "softPwm.h"
 float current_speed;
-int enable_pin = 25;
+int enable_pin = 37;
 
 driver_obj* front_left_wheel;
 driver_obj* front_right_wheel;
@@ -64,10 +64,10 @@ void driver_Callback(const armadillo::driver_packet& msg)
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "driver");
-  wiringPiSetup();
+  wiringPiSetupPhys();
   pinMode(enable_pin, OUTPUT);
   digitalWrite(enable_pin, 1);
-  front_left_wheel = new driver_obj(24, 23);
+  front_left_wheel = new driver_obj(35, 33);
   back_left_wheel = new driver_obj(24, 23);
   front_right_wheel = new driver_obj(24, 23);
   back_right_wheel = new driver_obj(24, 23);
