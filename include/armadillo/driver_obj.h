@@ -13,7 +13,8 @@ class driver_obj
 		//initialize thing
 		driver_obj(int dir_p, int clk_p, int en_p);
 		//Setting speed & direction
-		void set_dir(int dir);
+		void set_dir(int dir, int speed);
+		void set_speed(int speed);
 
 
 };

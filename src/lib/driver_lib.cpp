@@ -17,7 +17,7 @@ driver_obj :: driver_obj(int dir_p, int clk_p, int enable_p)
   pulse_clk(4);
 }
 
-void set_speed(float speed){
+void driver_obj :: set_speed(float speed){
   //softPwmStop(enable_pin);
       current_speed = speed;
       //float scaledSpeed = 25 - (speed/100.0)*23;
@@ -39,14 +39,15 @@ void driver_obj :: pulse_clk(int pulses){
   //restart speed after direction change
     set_speed(current_speed);
   }
-  if (msg.speed != current_speed){
-     softPwmStop(enable_pin);
-     set_speed(msg.speed);
-  }
+  
 }
 
-void driver_obj :: set_dir(int dir){
+void driver_obj :: set_dir(int dir, int speed){
 pulse_clk(2);
+if (speed != current_speed){
+     softPwmStop(enable_pin);
+     set_speed(speed);
+}
 return;
 ROS_INFO("not rreached");
 if (dir != current_dir) {
