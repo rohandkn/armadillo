@@ -25,7 +25,7 @@ armadillo::brusher_packet* createBrusherPacket(){
 
 armadillo::driver_packet* createDriverPacket(){
   armadillo::driver_packet* pkt = new armadillo::driver_packet();
-  pkt->direction = armadillo::driver_packet::BACK;
+  pkt->direction = armadillo::driver_packet::BACKWARD;
   return pkt;
 }
 
