@@ -14,10 +14,10 @@ driver_obj* back_right_wheel;
 
 
 void set_wheel_dirs(int front_left, int front_right, int back_left, int back_right){
-  front_left_wheel->set_dir(front_left);
-  front_right_wheel->set_dir(front_right);
-  back_left_wheel->set_dir(back_left);
-  back_right_wheel->set_dir(back_right);
+  front_left_wheel->set_dir(front_left, 100);
+  front_right_wheel->set_dir(front_right, 100);
+  back_left_wheel->set_dir(back_left, 100);
+  back_right_wheel->set_dir(back_right, 100);
 }
 
 void set_bot_dir(int bot_dir){
