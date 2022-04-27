@@ -12,18 +12,18 @@ driver_obj :: driver_obj(int dir_p, int clk_p, int enable_p)
   pinMode(clk_pin, OUTPUT);
   // put this in driver.cpp pinMode(enable_pin, OUTPUT);
   pinMode(dir_pin, OUTPUT);
-  pinMode(enable_pin, OUTPUT);
+  //pinMode(enable_pin, OUTPUT);
   digitalWrite(dir_pin,1);
   pulse_clk(4);
 }
 
 void driver_obj :: set_speed(float speed){
   //softPwmStop(enable_pin);
-      current_speed = speed;
+      //current_speed = speed;
       //float scaledSpeed = 25 - (speed/100.0)*23;
       ROS_INFO("set speed to %f", speed);
-      softPwmCreate(enable_pin,0,100);
-      softPwmWrite(enable_pin,(int) speed);
+      //softPwmCreate(enable_pin,0,100);
+      //softPwmWrite(enable_pin,(int) speed);
 }
 
 void driver_obj :: pulse_clk(int pulses){
@@ -43,7 +43,7 @@ void driver_obj :: pulse_clk(int pulses){
 }
 
 void driver_obj :: set_dir(int dir, int speed){
-pulse_clk(2);
+pulse_clk(3);
 if (speed != current_speed){
      softPwmStop(enable_pin);
      set_speed(speed);
