@@ -29,40 +29,38 @@ void driver_obj :: set_speed(float speed){
 void driver_obj :: pulse_clk(int pulses){
 
 	 for(int i = 0; i<pulses; i++){
-   	softPwmStop(enable_pin);
+   //	softPwmStop(enable_pin);
   //need to pull enable high to set direction otherwise signal interference
-   	digitalWrite(enable_pin, 1);
+   //	digitalWrite(enable_pin, 1);
 		digitalWrite(clk_pin,0);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		digitalWrite(clk_pin,1);
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
   //restart speed after direction change
-    set_speed(current_speed);
+    //set_speed(current_speed);
   }
   
 }
 
+int currDir = 1;
 void driver_obj :: set_dir(int dir, int speed){
-pulse_clk(3);
-if (speed != current_speed){
-     softPwmStop(enable_pin);
-     set_speed(speed);
-}
-return;
+//pulse_clk(1);
+//digitalWrite(dir_pin, !currDir);
+//currDir = !currDir;
 ROS_INFO("not rreached");
 if (dir != current_dir) {
 	    
 			if (dir == driver_obj::cw){
 				if(current_dir == driver_obj::ccw){
-					pulse_clk(13);
+					pulse_clk(8);
 				}
 				else if(current_dir == driver_obj::stop){
-					pulse_clk(6);
+					pulse_clk(1);
 				}
 			} 
 			if (dir == driver_obj::ccw){
 				if(current_dir == driver_obj::cw){
-					pulse_clk(3);
+					pulse_clk(8);
 				}
 				else if(current_dir == driver_obj::stop){
 					pulse_clk(9);
@@ -73,12 +71,11 @@ if (dir != current_dir) {
 					pulse_clk(7);
 				}
 				else if(current_dir == driver_obj::cw){
-					pulse_clk(10);
+					pulse_clk(15);
 				}
 			} 
 
-		current_dir = dir;
-          digitalWrite(clk_pin,0);	    
+		current_dir = dir;	    
 	  ROS_INFO("diver received dir: [%d]", dir);
 	  }
 }

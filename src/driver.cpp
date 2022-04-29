@@ -8,16 +8,16 @@ float current_speed;
 int enable_pin = 40;
 
 driver_obj* front_left_wheel;
-//driver_obj* front_right_wheel;
-//driver_obj* back_left_wheel;
-//driver_obj* back_right_wheel;
+driver_obj* front_right_wheel;
+driver_obj* back_left_wheel;
+driver_obj* back_right_wheel;
 
 
 void set_wheel_dirs(int front_left, int front_right, int back_left, int back_right){
   front_left_wheel->set_dir(front_left, 100);
-  //front_right_wheel->set_dir(front_right, 100);
-  //back_left_wheel->set_dir(back_left, 100);
-  //back_right_wheel->set_dir(back_right, 100);
+  front_right_wheel->set_dir(front_right, 100);
+  back_left_wheel->set_dir(back_left, 100);
+  back_right_wheel->set_dir(back_right, 100);
 }
 
 void set_bot_dir(int bot_dir){
@@ -58,10 +58,10 @@ int main(int argc, char **argv)
   wiringPiSetupPhys();
   pinMode(enable_pin, OUTPUT);
   digitalWrite(enable_pin, 1);
-  front_left_wheel = new driver_obj(38, 7, 40);
-  //back_left_wheel = new driver_obj(11, 13, 40);
-  //front_right_wheel = new driver_obj(15, 19, 40);
-  //back_right_wheel = new driver_obj(21, 23, 40);
+  front_left_wheel = new driver_obj(36, 32, 40);
+  front_right_wheel = new driver_obj(11, 13, 40);
+  back_left_wheel = new driver_obj(15, 19, 40);
+  back_right_wheel = new driver_obj(21, 23, 40);
  //digitalWrite(enable_pin, 0);
 
   ros::NodeHandle n;

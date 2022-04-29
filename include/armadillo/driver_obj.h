@@ -4,7 +4,7 @@ class driver_obj
 		int dir_pin;
 		int clk_pin;
 		int enable_pin;
-		int current_dir = -1;
+		int current_dir = 2;
 		float current_speed = -1;
 		void pulse_clk(int pulses);
 
