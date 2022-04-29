@@ -3,15 +3,82 @@
 #include "armadillo/lifter_packet.h" 
 #include "wiringPi.h"
 #include "softPwm.h"
+#include <chrono>
+#include <thread>
 
-float speed = 0;
-int direction = 0;
+int set_speed = 20;
 lifter_obj* front_lifter;
 lifter_obj* back_lifter;
 
+void moveStepperFixed(lifter_obj* first_lifter, int first_direction, 
+                                    lifter_obj* second_lifter, int second_direction) {
+  if (first_lifter != nullptr) first_lifter->set_speed_and_dir(first_direction, set_speed);
+  if (second_lifter != nullptr) second_lifter->set_speed_and_dir(second_direction, set_speed);
+  sleep_for(std::chrono::milliseconds(100));
+  if (first_lifter != nullptr) first_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+  if (second_lifter != nullptr) second_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+}
+
+void handleLiftingLogic(int module, int direction) {
+  if (module == armadillo::lifter_packet::FRONT) {
+    if (direction == armadillo::lifter_packet:UP) {
+      moveStepperFixed(front_lifter, armadillo::lifter_obj::cc, nullptr, -1);
+    }
+
+    else if (direction == armadillo::lifter_packet::DOWN) {
+      moveStepperFixed(front_lifter, armadillo::lifter_obj::ccw, nullptr, -1);
+    }
+
+    else if (direction == armadillo::lifter_packet::HOLD) {
+      front_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+    }
+
+    else if (direction == armadillo::lifter_packet::FREE) {
+      front_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+    }
+  }
+
+  else if (module == armadillo::lifter_packet::MIDDLE) {
+    if (direction == armadillo::lifter_packet:UP) {
+      moveStepperFixed(front_lifter, armadillo::lifter_obj::cc, back_lifter, armadillo::lifter_obj::cc);
+    }
+
+    else if (direction == armadillo::lifter_packet::DOWN) {
+      moveStepperFixed(front_lifter, armadillo::lifter_obj::ccw, back_lifter, armadillo::lifter_obj::ccw);
+    }
+
+    else if (direction == armadillo::lifter_packet::HOLD) {
+      front_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+      back_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+    }
+
+    else if (direction == armadillo::lifter_packet::FREE) {
+      front_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+      back_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+    }
+  }
+
+  else if (module == armadillo::lifter_packet::BACK) {
+    if (direction == armadillo::lifter_packet:UP) {
+      moveStepperFixed(back_lifter, armadillo::lifter_obj::cc, nullptr, -1);
+    }
+
+    else if (direction == armadillo::lifter_packet::DOWN) {
+      moveStepperFixed(back_lifter, armadillo::lifter_obj::ccw, nullptr, -1);
+    }
+
+    else if (direction == armadillo::lifter_packet::HOLD) {
+      back_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+    }
+
+    else if (direction == armadillo::lifter_packet::FREE) {
+      back_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+    }
+  }
+}
+
 void lifter_Callback(const armadillo::lifter_packet& msg) {
-  front_lifter->set_speed(msg.direction_front, msg.speed_front);
-  back_lifter->set_speed(msg.direction_back, msg.speed_back);
+  handleLiftingLogic(msg.module, msg.direction);
 }
 
 
