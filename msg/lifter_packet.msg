@@ -3,7 +3,9 @@ uint8 UP=0
 uint8 DOWN=1
 uint8 HOLD=2
 uint8 FREE=3
-uint8 direction_front
-float64 speed_front
-uint8 direction_back
-float64 speed_back
+uint8 FRONT=0
+uint8 MIDDLE=1
+uint8 BACK=2
+uint8 direction
+uint8 module
+float speed

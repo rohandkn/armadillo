@@ -4,16 +4,15 @@ class lifter_obj
 		int dir_pin;
 		int enable_pin;
 		int speed_pin;
-		int current_dir;
-		float current_speed;
 
-		enum{cc, ccw, stop};
+		
 
 	public:
+		enum stepper_dir {cc, ccw, hold, free};
 		//initialize thing
 		lifter_obj(int dir_p, int enable_p, int speed_p);
 		//Setting speed & direction
-		void set_speed(int dir, float speed);
+		void set_speed_and_dir(int dir, float speed);
 
 
 };
