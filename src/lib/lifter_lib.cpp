@@ -17,13 +17,13 @@ void lifter_obj :: set_speed_and_dir(int dir, float speed){
     float scaledSpeed = 25 - (speed/100.0)*23;
     //checks for hold signal
     
-    if (dir == armadillo::lifter_obj::hold){
+    if (dir == hold){
       //sets duty cycle = 100%
       softPwmWrite(speed_pin,scaledSpeed);
       // enable signal
       digitalWrite(enable_pin,1);
     }
-    else if (dir == armadillo::lifter_obj::free) {
+    else if (dir == free) {
       // enable signal
       digitalWrite(enable_pin,0);
     }
@@ -32,11 +32,11 @@ void lifter_obj :: set_speed_and_dir(int dir, float speed){
       softPwmCreate(speed_pin,0,scaledSpeed);
       softPwmWrite(speed_pin,scaledSpeed/2);
       //direction signal
-      if (armadillo::lifter_obj::cc) {
+      if (dir == cc) {
       	digitalWrite(dir_pin,1);
       }
 
-      else if (armadillo::lifter_obj::ccw) {
+      else if (dir == ccw) {
       	digitalWrite(dir_pin,0);
       }
       // enable signal

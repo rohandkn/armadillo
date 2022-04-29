@@ -8,4 +8,4 @@ uint8 MIDDLE=1
 uint8 BACK=2
 uint8 direction
 uint8 module
-float speed
+float32 speed

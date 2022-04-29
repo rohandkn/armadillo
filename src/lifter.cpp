@@ -14,65 +14,65 @@ void moveStepperFixed(lifter_obj* first_lifter, int first_direction,
                                     lifter_obj* second_lifter, int second_direction) {
   if (first_lifter != nullptr) first_lifter->set_speed_and_dir(first_direction, set_speed);
   if (second_lifter != nullptr) second_lifter->set_speed_and_dir(second_direction, set_speed);
-  sleep_for(std::chrono::milliseconds(100));
-  if (first_lifter != nullptr) first_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
-  if (second_lifter != nullptr) second_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  if (first_lifter != nullptr) first_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
+  if (second_lifter != nullptr) second_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
 }
 
 void handleLiftingLogic(int module, int direction) {
   if (module == armadillo::lifter_packet::FRONT) {
-    if (direction == armadillo::lifter_packet:UP) {
-      moveStepperFixed(front_lifter, armadillo::lifter_obj::cc, nullptr, -1);
+    if (direction == armadillo::lifter_packet::UP) {
+      moveStepperFixed(front_lifter, lifter_obj::cc, nullptr, -1);
     }
 
     else if (direction == armadillo::lifter_packet::DOWN) {
-      moveStepperFixed(front_lifter, armadillo::lifter_obj::ccw, nullptr, -1);
+      moveStepperFixed(front_lifter, lifter_obj::ccw, nullptr, -1);
     }
 
     else if (direction == armadillo::lifter_packet::HOLD) {
-      front_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+      front_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
     }
 
     else if (direction == armadillo::lifter_packet::FREE) {
-      front_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+      front_lifter->set_speed_and_dir(lifter_obj::free, set_speed);
     }
   }
 
   else if (module == armadillo::lifter_packet::MIDDLE) {
-    if (direction == armadillo::lifter_packet:UP) {
-      moveStepperFixed(front_lifter, armadillo::lifter_obj::cc, back_lifter, armadillo::lifter_obj::cc);
+    if (direction == armadillo::lifter_packet::UP) {
+      moveStepperFixed(front_lifter, lifter_obj::cc, back_lifter, lifter_obj::cc);
     }
 
     else if (direction == armadillo::lifter_packet::DOWN) {
-      moveStepperFixed(front_lifter, armadillo::lifter_obj::ccw, back_lifter, armadillo::lifter_obj::ccw);
+      moveStepperFixed(front_lifter, lifter_obj::ccw, back_lifter, lifter_obj::ccw);
     }
 
     else if (direction == armadillo::lifter_packet::HOLD) {
-      front_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
-      back_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+      front_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
+      back_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
     }
 
     else if (direction == armadillo::lifter_packet::FREE) {
-      front_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
-      back_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+      front_lifter->set_speed_and_dir(lifter_obj::free, set_speed);
+      back_lifter->set_speed_and_dir(lifter_obj::free, set_speed);
     }
   }
 
   else if (module == armadillo::lifter_packet::BACK) {
-    if (direction == armadillo::lifter_packet:UP) {
-      moveStepperFixed(back_lifter, armadillo::lifter_obj::cc, nullptr, -1);
+    if (direction == armadillo::lifter_packet::UP) {
+      moveStepperFixed(back_lifter, lifter_obj::cc, nullptr, -1);
     }
 
     else if (direction == armadillo::lifter_packet::DOWN) {
-      moveStepperFixed(back_lifter, armadillo::lifter_obj::ccw, nullptr, -1);
+      moveStepperFixed(back_lifter, lifter_obj::ccw, nullptr, -1);
     }
 
     else if (direction == armadillo::lifter_packet::HOLD) {
-      back_lifter->set_speed_and_dir(armadillo::lifter_obj::hold, set_speed);
+      back_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
     }
 
     else if (direction == armadillo::lifter_packet::FREE) {
-      back_lifter->set_speed_and_dir(armadillo::lifter_obj::free, set_speed);
+      back_lifter->set_speed_and_dir(lifter_obj::free, set_speed);
     }
   }
 }
