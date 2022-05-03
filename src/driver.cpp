@@ -5,7 +5,7 @@
 #include "softPwm.h"
 
 float current_speed;
-int enable_pin = 40;
+int enable_pin = 38;
 
 driver_obj* front_left_wheel;
 driver_obj* front_right_wheel;
@@ -58,10 +58,11 @@ int main(int argc, char **argv)
   wiringPiSetupPhys();
   pinMode(enable_pin, OUTPUT);
   digitalWrite(enable_pin, 1);
-  front_left_wheel = new driver_obj(36, 32, 40);
-  front_right_wheel = new driver_obj(11, 13, 40);
-  back_left_wheel = new driver_obj(15, 19, 40);
-  back_right_wheel = new driver_obj(21, 23, 40);
+  // direction, clk, en
+  front_left_wheel = new driver_obj(40, 7, 38);
+  front_right_wheel = new driver_obj(11, 13, 38);
+  back_left_wheel = new driver_obj(15, 19, 38);
+  back_right_wheel = new driver_obj(21, 23, 38);
  //digitalWrite(enable_pin, 0);
 
   ros::NodeHandle n;

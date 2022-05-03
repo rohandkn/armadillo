@@ -14,7 +14,7 @@ void moveStepperFixed(lifter_obj* first_lifter, int first_direction,
                                     lifter_obj* second_lifter, int second_direction) {
   if (first_lifter != nullptr) first_lifter->set_speed_and_dir(first_direction, set_speed);
   if (second_lifter != nullptr) second_lifter->set_speed_and_dir(second_direction, set_speed);
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::this_thread::sleep_for(std::chrono::milliseconds(4500));
   if (first_lifter != nullptr) first_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
   if (second_lifter != nullptr) second_lifter->set_speed_and_dir(lifter_obj::hold, set_speed);
 }
@@ -40,11 +40,11 @@ void handleLiftingLogic(int module, int direction) {
 
   else if (module == armadillo::lifter_packet::MIDDLE) {
     if (direction == armadillo::lifter_packet::UP) {
-      moveStepperFixed(front_lifter, lifter_obj::cc, back_lifter, lifter_obj::cc);
+      moveStepperFixed(front_lifter, lifter_obj::ccw, back_lifter, lifter_obj::ccw);
     }
 
     else if (direction == armadillo::lifter_packet::DOWN) {
-      moveStepperFixed(front_lifter, lifter_obj::ccw, back_lifter, lifter_obj::ccw);
+      moveStepperFixed(front_lifter, lifter_obj::cc, back_lifter, lifter_obj::cc);
     }
 
     else if (direction == armadillo::lifter_packet::HOLD) {
@@ -87,8 +87,8 @@ int main(int argc, char **argv)
 
   ros::init(argc, argv, "lifter");
   wiringPiSetupPhys();
-  front_lifter = new lifter_obj(15, 13, 11);
-  back_lifter = new lifter_obj(7, 22, 18);
+  front_lifter = new lifter_obj(29, 24, 22);
+  back_lifter = new lifter_obj(35, 32, 31);
   ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe("lifter_topic", 1000, lifter_Callback);
   ros::spin();

@@ -10,18 +10,18 @@
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int front_cliff_fd = wiringPiI2CSetup(0x40);
-int middle_cliff_fd = wiringPiI2CSetup(0x40);
-int back_cliff_fd = wiringPiI2CSetup(0x40);
-int fave_1_fd = wiringPiI2CSetup(0x40);
-int fave_r_fd = wiringPiI2CSetup(0x40);
-int left_side_fd = wiringPiI2CSetup(0x40);
-int right_side_fd = wiringPiI2CSetup(0x40);
+int middle_cliff_fd = wiringPiI2CSetup(0x28);
+int back_cliff_fd = wiringPiI2CSetup(0x30);
+int fave_1_fd = wiringPiI2CSetup(0x30);
+int fave_r_fd = wiringPiI2CSetup(0x30);
+int left_side_fd = wiringPiI2CSetup(0x30);
+int right_side_fd = wiringPiI2CSetup(0x30);
 
 
 float dist_calc(int fd){
   int hodist = wiringPiI2CReadReg8(fd,0x5e);
   int lodist = wiringPiI2CReadReg8(fd,0x5f);
-  float rawdist = (hodist*16+lodist)/4;
+  float rawdist = (hodist*16+lodist)/4.0;
   return rawdist;
 }
 
