@@ -4,6 +4,7 @@
 #include <armadillo/brusher_packet.h>
 #include <armadillo/driver_packet.h>
 #include <armadillo/lifter_packet.h>
+#include <armadillo/start_packet.h>
 #include <chrono>
 #include <thread>
 
@@ -14,7 +15,9 @@
   ROS_INFO("nav received front cliff sensor: [%f]", msg.front_cliff);
 }*/
 
-
+ros::Publisher driver_pub;
+ros::Publisher lifter_pub;
+ros::Publisher brusher_pub;
 
 
 void sendBrusherPacket(int state, ros::Publisher brusher_pub){
@@ -42,13 +45,12 @@ void sendDriverPacket(int direction, int duration, ros::Publisher driver_pub){
   pkt->speed = 1.0;
   driver_pub.publish(*pkt);
 
-  /*std::this_thread::sleep_for(std::chrono::milliseconds(duration));
+  std::this_thread::sleep_for(std::chrono::milliseconds(duration));
 
   armadillo::driver_packet* pkt2 = new armadillo::driver_packet();
   pkt2->direction = armadillo::driver_packet::STOP;
   pkt2->speed = 1.0;
-  ROS_INFO("SENT");
-  driver_pub.publish(*pkt2);*/
+  driver_pub.publish(*pkt2);
 }
 
 void sendLifterPacket(int direction, int module, ros::Publisher lifter_pub){
@@ -68,7 +70,7 @@ void algorithm() {
 }
 
 
-void start_Callback(const armadillo::start& msg)
+void start_Callback(const armadillo::start_packet& msg)
 {
   algorithm();
 }
@@ -78,12 +80,12 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "navigation");
   ros::NodeHandle n;
 
-  ros::Publisher driver_pub = n.advertise<armadillo::driver_packet>("driver_topic", 1000);
-  ros::Publisher lifter_pub = n.advertise<armadillo::lifter_packet>("lifter_topic", 1000);
-  ros::Publisher brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
+  driver_pub = n.advertise<armadillo::driver_packet>("driver_topic", 1000);
+  lifter_pub = n.advertise<armadillo::lifter_packet>("lifter_topic", 1000);
+  brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
 
 
-  ros::Subscriber start_sub = n.subscribe("start_topic", 1000, distance_sensor_Callback);
+  ros::Subscriber start_sub = n.subscribe("start_topic", 1000, start_Callback);
   //ros::Subscriber enc_sub = n.subscribe("encoder_topic", 1000, encoder_Callback);
   //ros::Publisher brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
 
