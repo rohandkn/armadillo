@@ -25,6 +25,13 @@ void sendBrusherPacket(int state, ros::Publisher brusher_pub){
   brusher_pub.publish(*pkt);
 }
 
+armadillo::brusher_packet* createBrusherPacket(int state, ros::Publisher brusher_pub){
+  armadillo::brusher_packet* pkt = new armadillo::brusher_packet();
+  pkt->state = state;
+  return pkt;
+}
+
+
 void sendDriverPacket(int direction, int duration, ros::Publisher driver_pub){
   armadillo::driver_packet* pkt = new armadillo::driver_packet();
   pkt->direction = direction;
@@ -68,9 +75,9 @@ int main(int argc, char **argv)
 
   //int count = 0;
 
-  //armadillo::brusher_packet* brusher_pkt = createBrusherPacket();
+  armadillo::brusher_packet* brusher_pkt = createBrusherPacket();
   
-  //lifter_pub.publish(*lifter_pkt);
+  brusher_pub.publish(*brusher_pkt);
   sendBrusherPacket(armadillo::brusher_packet::ON, brusher_pub);
   sendDriverPacket(armadillo::driver_packet::FORWARD, 100, driver_pub);
   sendLifterPacket(armadillo::lifter_packet::UP, armadillo::lifter_packet::FRONT, lifter_pub);
