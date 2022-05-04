@@ -12,12 +12,10 @@
 /*void distance_sensor_Callback(const armadillo::distance_sensor_packet& msg)
 {
   ROS_INFO("nav received front cliff sensor: [%f]", msg.front_cliff);
-}
-
-void encoder_Callback(const armadillo::encoder_packet& msg)
-{
-  ROS_INFO("nav received encoder useless information: [%f]", msg.rotations);
 }*/
+
+
+
 
 void sendBrusherPacket(int state, ros::Publisher brusher_pub){
   armadillo::brusher_packet* pkt = new armadillo::brusher_packet();
@@ -62,6 +60,18 @@ void sendLifterPacket(int direction, int module, ros::Publisher lifter_pub){
   std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }
 
+void algorithm() {
+  sendBrusherPacket(armadillo::brusher_packet::ON, brusher_pub);
+  sendDriverPacket(armadillo::driver_packet::FORWARD, 100, driver_pub);
+  sendLifterPacket(armadillo::lifter_packet::UP, armadillo::lifter_packet::FRONT, lifter_pub);
+
+}
+
+
+void start_Callback(const armadillo::start& msg)
+{
+  algorithm();
+}
 
 int main(int argc, char **argv)
 {
@@ -73,7 +83,7 @@ int main(int argc, char **argv)
   ros::Publisher brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
 
 
-  //ros::Subscriber dist_sub = n.subscribe("distance_sensor_topic", 1000, distance_sensor_Callback);
+  ros::Subscriber start_sub = n.subscribe("start_topic", 1000, distance_sensor_Callback);
   //ros::Subscriber enc_sub = n.subscribe("encoder_topic", 1000, encoder_Callback);
   //ros::Publisher brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
 
@@ -81,12 +91,6 @@ int main(int argc, char **argv)
 
   //int count = 0;
 
-  armadillo::brusher_packet* brusher_pkt = createBrusherPacket();
-  armadillo::driver_packet* dr = createDriverPacket(armadillo::driver_packet::FORWARD, 100, driver_pub);
-  driver_packet.publish(*dr);
-  sendBrusherPacket(armadillo::brusher_packet::ON, brusher_pub);
-  sendDriverPacket(armadillo::driver_packet::FORWARD, 100, driver_pub);
-  sendLifterPacket(armadillo::lifter_packet::UP, armadillo::lifter_packet::FRONT, lifter_pub);
 
   ros::spin();
 

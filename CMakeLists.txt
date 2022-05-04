@@ -11,6 +11,7 @@ add_message_files(FILES encoder_packet.msg)
 add_message_files(FILES driver_packet.msg)
 add_message_files(FILES lifter_packet.msg)
 add_message_files(FILES brusher_packet.msg)
+add_message_files(FILES start.msg)
 
 
 
