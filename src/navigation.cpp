@@ -4,6 +4,8 @@
 #include <armadillo/brusher_packet.h>
 #include <armadillo/driver_packet.h>
 #include <armadillo/lifter_packet.h>
+#include <chrono>
+#include <thread>
 
 ros::Publisher driver_pub;
 ros::Publisher lifter_pub;
@@ -28,7 +30,7 @@ void sendBrusherPacket(int state){
 void sendDriverPacket(int direction, int duration){
   armadillo::driver_packet* pkt = new armadillo::driver_packet();
   pkt->direction = direction;
-  pkt2->speed = 1.0;
+  pkt->speed = 1.0;
   driver_pub.publish(*pkt);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(duration));
@@ -39,7 +41,7 @@ void sendDriverPacket(int direction, int duration){
   driver_pub.publish(*pkt2);
 }
 
-void armadillo::lifter_packet* sendLifterPacket(int direction, int module){
+void sendLifterPacket(int direction, int module){
   armadillo::lifter_packet* pkt = new armadillo::lifter_packet();
   pkt->direction =  direction;
   pkt->module =  module;
