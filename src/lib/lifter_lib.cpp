@@ -28,7 +28,6 @@ void lifter_obj :: set_speed_and_dir(int dir, float speed){
       digitalWrite(enable_pin,0);
     }
     else {
-      ROS_INFO("set speed to %f", scaledSpeed);
       softPwmCreate(speed_pin,0,scaledSpeed);
       softPwmWrite(speed_pin,scaledSpeed/2);
       //direction signal
@@ -42,6 +41,4 @@ void lifter_obj :: set_speed_and_dir(int dir, float speed){
       // enable signal
       digitalWrite(enable_pin,1);
     }
-	  ROS_INFO("lifter object received dir: [%d]", dir);
-	  ROS_INFO("lifter object received speed: [%f]", speed);
 }

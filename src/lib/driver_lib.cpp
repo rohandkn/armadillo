@@ -21,7 +21,6 @@ void driver_obj :: set_speed(float speed){
   //softPwmStop(enable_pin);
       //current_speed = speed;
       //float scaledSpeed = 25 - (speed/100.0)*23;
-      ROS_INFO("set speed to %f", speed);
       //softPwmCreate(enable_pin,0,100);
       //softPwmWrite(enable_pin,(int) speed);
 }
@@ -47,7 +46,6 @@ void driver_obj :: set_dir(int dir, int speed){
 //pulse_clk(1);
 //digitalWrite(dir_pin, !currDir);
 //currDir = !currDir;
-ROS_INFO("not rreached");
 if (dir != current_dir) {
 	    
 			if (dir == driver_obj::cw){
@@ -76,6 +74,5 @@ if (dir != current_dir) {
 			} 
 
 		current_dir = dir;	    
-	  ROS_INFO("diver received dir: [%d]", dir);
 	  }
 }
