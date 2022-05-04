@@ -48,8 +48,7 @@ void driver_Callback(const armadillo::driver_packet& msg)
 {
 
   set_bot_dir(msg.direction);
-  ROS_INFO("recevied driver dir: [%d]", msg.direction);
-  ROS_INFO("recevied driver speed: [%f]", msg.speed);
+  ROS_INFO("DRIVER MOVING: [%d]", msg.direction);
 }
 
 int main(int argc, char **argv)

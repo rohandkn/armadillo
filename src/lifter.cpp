@@ -78,6 +78,7 @@ void handleLiftingLogic(int module, int direction) {
 }
 
 void lifter_Callback(const armadillo::lifter_packet& msg) {
+  ROS_INFO("LIFTER MOVING: MODULE [%d], DIR [%d]", msg.direction, msg.module);
   handleLiftingLogic(msg.module, msg.direction);
 }
 

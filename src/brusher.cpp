@@ -3,7 +3,7 @@
 
 void brusher_Callback(const armadillo::brusher_packet& msg)
 {
-  ROS_INFO("recevied brusher state: [%d]", msg.state);
+  ROS_INFO("BRUSHER STATE: [%d]", msg.state);
 }
 
 int main(int argc, char **argv)
