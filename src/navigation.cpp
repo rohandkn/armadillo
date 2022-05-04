@@ -7,9 +7,7 @@
 #include <chrono>
 #include <thread>
 
-ros::Publisher driver_pub;
-ros::Publisher lifter_pub;
-ros::Publisher brusher_pub;
+
 
 /*void distance_sensor_Callback(const armadillo::distance_sensor_packet& msg)
 {
@@ -21,13 +19,13 @@ void encoder_Callback(const armadillo::encoder_packet& msg)
   ROS_INFO("nav received encoder useless information: [%f]", msg.rotations);
 }*/
 
-void sendBrusherPacket(int state){
+void sendBrusherPacket(int state, ros::Publisher brusher_pub){
   armadillo::brusher_packet* pkt = new armadillo::brusher_packet();
   pkt->state = state;
   brusher_pub.publish(*pkt);
 }
 
-void sendDriverPacket(int direction, int duration){
+void sendDriverPacket(int direction, int duration, ros::Publisher driver_pub){
   armadillo::driver_packet* pkt = new armadillo::driver_packet();
   pkt->direction = direction;
   pkt->speed = 1.0;
@@ -38,10 +36,11 @@ void sendDriverPacket(int direction, int duration){
   armadillo::driver_packet* pkt2 = new armadillo::driver_packet();
   pkt2->direction = armadillo::driver_packet::STOP;
   pkt2->speed = 1.0;
+  ROS_INFO("SENT");
   driver_pub.publish(*pkt2);
 }
 
-void sendLifterPacket(int direction, int module){
+void sendLifterPacket(int direction, int module, ros::Publisher lifter_pub){
   armadillo::lifter_packet* pkt = new armadillo::lifter_packet();
   pkt->direction =  direction;
   pkt->module =  module;
@@ -56,9 +55,9 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "navigation");
   ros::NodeHandle n;
 
-  driver_pub = n.advertise<armadillo::driver_packet>("driver_topic", 1000);
-  lifter_pub = n.advertise<armadillo::lifter_packet>("lifter_topic", 1000);
-  brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
+  ros::Publisher driver_pub = n.advertise<armadillo::driver_packet>("driver_topic", 1000);
+  ros::Publisher lifter_pub = n.advertise<armadillo::lifter_packet>("lifter_topic", 1000);
+  ros::Publisher brusher_pub = n.advertise<armadillo::brusher_packet>("brusher_topic", 1000);
 
 
   //ros::Subscriber dist_sub = n.subscribe("distance_sensor_topic", 1000, distance_sensor_Callback);
@@ -72,9 +71,11 @@ int main(int argc, char **argv)
   //armadillo::brusher_packet* brusher_pkt = createBrusherPacket();
   
   //lifter_pub.publish(*lifter_pkt);
-  sendBrusherPacket(armadillo::brusher_packet::ON);
-  sendDriverPacket(armadillo::driver_packet::FORWARD, 100);
-  sendLifterPacket(armadillo::lifter_packet::UP, armadillo::lifter_packet::FRONT);
+  sendBrusherPacket(armadillo::brusher_packet::ON, brusher_pub);
+  sendDriverPacket(armadillo::driver_packet::FORWARD, 100, driver_pub);
+  sendLifterPacket(armadillo::lifter_packet::UP, armadillo::lifter_packet::FRONT, lifter_pub);
+
+  ros::spin();
 
 
 
